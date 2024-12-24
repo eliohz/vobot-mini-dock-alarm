@@ -13,4 +13,4 @@ Für die Installation und Konfiguration des Vobot-Systems folgen Sie bitte der o
 ## Load code to Device with Thonny
 Download [Thonny](https://thonny.org/)
 
-app -> MicroPython device /apps
+app -> MicroPython device /apps -> run manifest.yml
