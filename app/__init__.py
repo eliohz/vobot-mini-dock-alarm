@@ -1,28 +1,44 @@
 import lvgl as lv
 import peripherals
 import asyncio
+import urequests  # For HTTP requests in MicroPython
 
 # Application metadata
 NAME = "Ticket Counter"
 CAN_BE_AUTO_SWITCHED = True
 
 # Global variables
-ticket_number = 0
 scr = None
 label = None
+API_URL = "https://api.mcsrvstat.us/3/gommehd.net"  # API endpoint
 
 # Acquire ambient light
 peripherals.ambient_light.acquire()
 
-# Define the on_running_foreground lifecycle
+async def fetch_ticket_number():
+    """Fetch the simulated ticket number (player count) from the API."""
+    try:
+        response = urequests.get(API_URL)
+        data = response.json()
+        return data.get("players", {}).get("online", 0)  # Get 'online' from 'players'
+    except Exception as e:
+        print(f"Error fetching data: {e}")
+        return -1  # Return -1 in case of error
+
 async def on_running_foreground():
     """Called when the app is active, approximately every 200ms."""
-    global ticket_number
+    global label
 
-    ticket_number += 1
-    label.set_text(f"Anzahl Tickets: #{ticket_number}")
+    # Fetch the ticket number (player count)
+    ticket_number = await fetch_ticket_number()
 
-    # Update ambient light based on ticket count
+    # Update label with the ticket number
+    if ticket_number >= 0:
+        label.set_text(f"Anzahl Tickets: #{ticket_number}")
+    else:
+        label.set_text("Error fetching data")
+
+    # Update ambient light based on ticket number
     if ticket_number >= 20:
         peripherals.ambient_light.set_color([(255, 0, 0)], True)  # Red
     elif ticket_number >= 10:
@@ -30,14 +46,11 @@ async def on_running_foreground():
     else:
         peripherals.ambient_light.set_color([(0, 255, 0)], True)  # Green
 
-    await asyncio.sleep(0.2)  # Use asyncio sleep instead of time.sleep
+    await asyncio.sleep(1)  # Delay for 1 second
 
-# Define the on_stop lifecycle
 async def on_stop():
     """Called when the app is stopped or closed."""
-    global scr, ticket_number
-    ticket_number = 0
-
+    global scr
     if scr:
         scr.clean()
         del scr
@@ -45,7 +58,6 @@ async def on_stop():
     # Release ambient light
     peripherals.ambient_light.release()
 
-# Define the on_start lifecycle
 async def on_start():
     """Called when the app starts."""
     global scr, label
@@ -54,7 +66,7 @@ async def on_start():
     scr = lv.obj()
     label = lv.label(scr)
     label.center()
-    label.set_text("BPOS")
+    label.set_text("Fetching ticket number...")
 
     # Load the screen
     lv.scr_load(scr)
