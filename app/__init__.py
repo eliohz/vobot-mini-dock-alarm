@@ -1,7 +1,7 @@
 import lvgl as lv
 import peripherals
 import asyncio
-import urequests  # For HTTP requests in MicroPython
+import urequests
 
 NAME = "Ticket Counter"
 CAN_BE_AUTO_SWITCHED = True
@@ -22,7 +22,7 @@ async def fetch_ticket_number():
         try:
             response = urequests.get(API_URL)
             data = response.json()
-            last_ticket_number = data.get("length", 0)  # Get the length of the fact
+            last_ticket_number = data.get("length", 0)
             return last_ticket_number
         except Exception as e:
             print(f"Attempt {attempt + 1} failed: {e}")
@@ -33,9 +33,8 @@ async def on_running_foreground():
     global label
 
     ticket_number = await fetch_ticket_number()
-    label.set_text(f"Anzahl Tickets: {ticket_number}")
+    label.set_text(f"Anzahl Tickets: #{ticket_number}")
 
-    # Update ambient light based on ticket number
     if ticket_number >= 100:
         peripherals.ambient_light.set_color([(255, 0, 0)], True)  # Red
     elif ticket_number >= 50:
@@ -43,7 +42,7 @@ async def on_running_foreground():
     else:
         peripherals.ambient_light.set_color([(0, 255, 0)], True)  # Green
 
-    await asyncio.sleep(10)
+    await asyncio.sleep(3)
 
 async def on_stop():
     global scr
@@ -56,10 +55,3 @@ async def on_start():
     global scr, label
     scr = lv.obj()
     label = lv.label(scr)
-    
-    # Set a larger font size for the label
-    label.set_style_text_font(lv.font_montserrat_64, lv.PART.MAIN)  # Bigger font size
-    label.center()
-    label.set_text("Fetching ticket number...")
-    
-    lv.scr_load(scr)
