@@ -10,4 +10,7 @@
 ## Installation und Konfiguration
 Für die Installation und Konfiguration des Vobot-Systems folgen Sie bitte der offiziellen Anleitung auf [dock.myvobot.com](https://dock.myvobot.com/developer/getting_started/).
 
+## Installing Prerequisites
+Download [Thonny](https://thonny.org/)
+
 app -> MicroPython device /apps
