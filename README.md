@@ -12,4 +12,4 @@ Für die Installation und Konfiguration des Vobot-Systems folgen Sie bitte der o
 
 ---
 
-Das README ist jetzt kürzer und enthält die wesentlichen Informationen.
+Das README ist jetzt kürzer und enthält die wesentlichen Informationen.§
