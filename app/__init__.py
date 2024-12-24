@@ -56,6 +56,10 @@ async def on_start():
     global scr, label
     scr = lv.obj()
     label = lv.label(scr)
+    
+    # Set a larger font size for the label
+    label.set_style_text_font(lv.font_montserrat_64, lv.PART.MAIN)  # Bigger font size
     label.center()
     label.set_text("Fetching ticket number...")
+    
     lv.scr_load(scr)
