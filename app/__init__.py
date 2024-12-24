@@ -16,7 +16,6 @@ last_ticket_number = 0
 peripherals.ambient_light.acquire()
 
 async def fetch_ticket_number():
-    """Fetch the ticket number (fact length) from the Cat Fact API."""
     global last_ticket_number
     retries = 3
     for attempt in range(retries):
@@ -31,11 +30,10 @@ async def fetch_ticket_number():
     return last_ticket_number  # Fallback to cached value
 
 async def on_running_foreground():
-    """Called when the app is active, approximately every 200ms."""
     global label
 
     ticket_number = await fetch_ticket_number()
-    label.set_text(f"Anzahl Tickets: #{ticket_number}")
+    label.set_text(f"Anzahl Tickets: {ticket_number}")
 
     # Update ambient light based on ticket number
     if ticket_number >= 100:
@@ -45,10 +43,9 @@ async def on_running_foreground():
     else:
         peripherals.ambient_light.set_color([(0, 255, 0)], True)  # Green
 
-    await asyncio.sleep(10)  # Delay for 10 seconds to respect API rate limits
+    await asyncio.sleep(10)
 
 async def on_stop():
-    """Called when the app is stopped or closed."""
     global scr
     if scr:
         scr.clean()
@@ -56,7 +53,6 @@ async def on_stop():
     peripherals.ambient_light.release()
 
 async def on_start():
-    """Called when the app starts."""
     global scr, label
     scr = lv.obj()
     label = lv.label(scr)
