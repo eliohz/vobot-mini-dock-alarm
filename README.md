@@ -11,7 +11,3 @@
 Für die Installation und Konfiguration des Vobot-Systems folgen Sie bitte der offiziellen Anleitung auf [dock.myvobot.com](https://dock.myvobot.com/developer/getting_started/).
 
 app -> ESP31/apps
-
----
-
-Das README ist jetzt kürzer und enthält die wesentlichen Informationen.§
