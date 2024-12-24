@@ -35,7 +35,7 @@ async def on_running_foreground():
     global label
 
     ticket_number = await fetch_ticket_number()
-    label.set_text(f"Anzahl Tickets: #{ticket_number}")
+    label.set_text(f"Anzahl Tickets: {ticket_number}")
 
     # Update ambient light based on ticket number
     if ticket_number >= 100:
