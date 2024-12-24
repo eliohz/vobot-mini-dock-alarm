@@ -6,13 +6,11 @@ import urequests
 NAME = "Ticket Counter"
 CAN_BE_AUTO_SWITCHED = True
 
-# Global variables
 scr = None
 label = None
 API_URL = "https://catfact.ninja/fact"  # API endpoint
 last_ticket_number = 0
 
-# Acquire ambient light
 peripherals.ambient_light.acquire()
 
 async def fetch_ticket_number():
@@ -26,14 +24,14 @@ async def fetch_ticket_number():
             return last_ticket_number
         except Exception as e:
             print(f"Attempt {attempt + 1} failed: {e}")
-            await asyncio.sleep(2)  # Wait before retrying
-    return last_ticket_number  # Fallback to cached value
+            await asyncio.sleep(2) 
+    return last_ticket_number
 
 async def on_running_foreground():
     global label
 
     ticket_number = await fetch_ticket_number()
-    label.set_text(f"Anzahl Tickets: #{ticket_number}")
+    label.set_text(f"Anzahl Tickets: {ticket_number}")
 
     if ticket_number >= 100:
         peripherals.ambient_light.set_color([(255, 0, 0)], True)  # Red
@@ -55,3 +53,6 @@ async def on_start():
     global scr, label
     scr = lv.obj()
     label = lv.label(scr)
+    label.center()
+    label.set_text("Fetching ticket number...")
+    lv.scr_load(scr)
