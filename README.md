@@ -16,5 +16,5 @@ Download [Thonny](https://thonny.org/)
 app -> MicroPython device /apps -> run manifest.yml
 
 ## Edit Bool (API)
-curl -X POST https://eliohz.com/api/ticket-status   -H "Content-Type: application/json"   -d '{"status": false}'
+curl -X POST https://eliohz.com/api/ticket-status   -H "Content-Type: application/json"   -d '{"status": false}' /n
 curl -X POST https://eliohz.com/api/ticket-status   -H "Content-Type: application/json"   -d '{"status": true}'
