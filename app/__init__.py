@@ -8,7 +8,7 @@ CAN_BE_AUTO_SWITCHED = True
 
 scr = None
 label = None
-API_URL = "https://eliohz.com/api/ticket-status"  # API endpoint
+API_URL = "https://eliohz.com/api/ticket-status"
 last_ticket_status = False
 
 # Acquire the peripheral for ambient light control
@@ -29,8 +29,8 @@ async def fetch_ticket_status():
             await asyncio.sleep(2) 
     return last_ticket_status
 
+# SOLLTE FUNKTIONIEREN
 async def send_post_request():
-    """Sends a POST request to update the ticket status."""
     try:
         payload = {
             "type": "Http",
@@ -51,7 +51,6 @@ async def send_post_request():
         print(f"Error sending POST request: {e}")
 
 async def on_running_foreground():
-    """Updates the label and ambient light based on ticket status."""
     global label
 
     ticket_status = await fetch_ticket_status()
@@ -64,14 +63,12 @@ async def on_running_foreground():
 
     await asyncio.sleep(3)
 
+# DAS GEHT NICHT!!!
 def event_handler(e):
-    """Handles button and encoder events."""
     if e_key == lv.KEY.ENTER:
-        # Trigger POST request on ENTER key press
         asyncio.create_task(send_post_request())
 
 async def on_stop():
-    """Releases resources when the app stops."""
     global scr
     if scr:
         scr.clean()
@@ -79,7 +76,6 @@ async def on_stop():
     peripherals.ambient_light.release()
 
 async def on_start():
-    """Initializes the screen and displays a fetching message."""
     global scr, label
     scr = lv.obj()
     label = lv.label(scr)
@@ -87,8 +83,8 @@ async def on_start():
     label.set_text("Fetching ticket status...")
     lv.scr_load(scr)
 
-    # Attach event handler for button operations
+    # DAS GEHT NICHT!!!
     scr.add_event_cb(event_handler, lv.EVENT.KEY, None)
 
-    # Optional: Fetch ticket status immediately
+    # HIER NICHT SICHER???
     await on_running_foreground() 
