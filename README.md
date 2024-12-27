@@ -14,3 +14,7 @@ Für die Installation und Konfiguration des Vobot-Systems folgen Sie bitte der o
 Download [Thonny](https://thonny.org/)
 
 app -> MicroPython device /apps -> run manifest.yml
+
+## Edit Bool (API)
+curl -X POST https://eliohz.com/api/ticket-status   -H "Content-Type: application/json"   -d '{"status": false}'
+curl -X POST https://eliohz.com/api/ticket-status   -H "Content-Type: application/json"   -d '{"status": true}'
