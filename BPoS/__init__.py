@@ -3,10 +3,15 @@ import urequests
 import peripherals
 
 # Constants and configuration
+ICON: str = "A:apps/BPoS/resources/icon.png"
+
 NAME = "BPOS Alarm"
 API_URL = "https://eliohz.com/api/ticket-status"
 CAN_BE_AUTO_SWITCHED = True
 DEFAULT_BG_COLOR = lv.color_hex3(0x000)
+PHOTO_TRUE = "A:apps/BPoS/resources/true.jpg"
+PHOTO_FALSE = "A:apps/BPoS/resources/false.jpg"
+
 
 # Global variables
 scr = None  # LVGL screen object
@@ -34,6 +39,18 @@ async def fetch_ticket_status():
     # Return the last known ticket status if all retries fail
     return last_ticket_status
 
+def update_photo_true():
+    # Aktualisiere den Hintergrund des Bildschirms mit dem entsprechenden Bild
+    global scr
+    if scr:
+        scr.set_style_bg_img_src(PHOTO_TRUE, lv.PART.MAIN)
+
+def update_photo_false():
+    # Aktualisiere den Hintergrund des Bildschirms mit dem entsprechenden Bild
+    global scr
+    if scr:
+        scr.set_style_bg_img_src(PHOTO_FALSE, lv.PART.MAIN)
+
 async def on_running_foreground():
     # Updates the screen and ambient light based on the ticket status.
     global label
@@ -42,10 +59,10 @@ async def on_running_foreground():
     
     # Update label text and ambient light color based on the ticket status
     if ticket_status:
-        label.set_text("KEINE NEUEN TICKETS")
+        update_photo_true()
         peripherals.ambient_light.set_color([(0, 255, 0)], True)  # Green
     else:
-        label.set_text("NEUES TICKET!")
+        update_photo_false()
         peripherals.ambient_light.set_color([(255, 0, 0)], True)  # Red
 
 def send_post_request():
@@ -87,7 +104,6 @@ async def on_start():
     scr = lv.obj()
     label = lv.label(scr)
     label.center()
-    label.set_text("Fetching ticket status...")
     lv.scr_load(scr)
 
     # Set the screen background color

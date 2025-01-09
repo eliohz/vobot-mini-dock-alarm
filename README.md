@@ -1,6 +1,6 @@
-# Vobot Ticket Counter
+# Vobot MiniDock Ticket Alarm
 
-**Vobot Ticket Counter** ist ein Ferienprojekt, das die Vobot-Plattform nutzt, um ein einfacher Ticket Alarm
+**Vobot Ticket Alarm** ist ein Ferienprojekt, das die Vobot MiniDock nutzt, um ein einfacher Ticket Alarm
 ## Funktionen
 - **Ticketanzeige**: Zeigt an wenn ein neues Ticket reinkommt
 - **Umgebungslichtsteuerung**: Farbänderung wenn Ticket reinkommt
