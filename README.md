@@ -22,7 +22,7 @@
           |    BPOS Chat (Queue)   |
           +-----------+------------+
                       |
-                      | "weitergeleitet"
+                      | "weitergeleitet" im Text
                       v
    +---------------------------------------+
    |  Power Automate Task (Trigger Event)  |
