@@ -25,13 +25,13 @@
                       | "weitergeleitet" im Text
                       v
    +---------------------------------------+
-   |  Power Automate Task (Trigger Event)  |
+   |  Power Automate Task (Trigger Event)  | 
    +---------------------------------------+
                       |
                       | POST  (False)
                       v
          +-------------------------+
-         |   eliohz.com (API Bool) |
+         |   eliohz.com (API Bool) | https://eliohz.com/api/ticket-status
          +------------+------------+
                    Ʌ     |
   Knopf gedrückt   |     |  GET Request
