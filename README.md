@@ -1,69 +1,104 @@
-## 1. Projektbeschreibung
-**Vobot Ticket Alarm** ist ein Ferienprojekt, das die Vobot MiniDock nutzt, um ein einfacher Ticket Alarm
+Here is your project description in English with the requested changes:  
 
-## 2. Dependencies (Voraussetzungen)
-- Vobot MiniDock
-- Python (Micropython)
-- lvgl Library
-- urequests Library
-- peripherials Libary
+---
 
-## 3. Installation
-1. Für die Installation und Konfiguration des Vobot-Systems folgen Sie bitte der offiziellen Anleitung auf [dock.myvobot.com](https://dock.myvobot.com/developer/getting_started/).
+# **1. Project Description**  
+**Vobot Ticket Alarm** is a holiday project that utilizes the Vobot MiniDock to indicate whether new tickets are available in the N&S queue.  
 
-- [Thonny](https://thonny.org/) installieren
-- Mit ESP32 verbinden
-- App Ordner auf den ESP32 kopieren.
-- Ausführen manifest.yml
+---
 
-## 5 Nutzung / Testing
-1. Nutzung
-- Wenn Ticket reinkommt, wird das Licht auf Rot gestellt.
-- Wenn Ticket angeschaut wurde, kann mit Knopf bestätigt werden. Das Licht wird auf Grün gestellt.
+# **2. Dependencies (Requirements)**  
+- Vobot MiniDock  
+- Selfhosted API Servuice that can be either true or false
+- Python (Micropython)  
+- lvgl Library  
+- urequests Library  
+- peripherials Library  
 
-2. API Boolean Manuell bearbeiten (POST Request)
-    ```bash 
-    curl -X POST https://eliohz.com/api/ticket-status   -H "Content-Type: application/json"   -d '{"status": false}'
-    curl -X POST https://eliohz.com/api/ticket-status   -H "Content-Type: application/json"   -d '{"status": true}'
-    ```
-    ```powershell
-    Invoke-WebRequest -Uri "https://eliohz.com/api/ticket-status" -Method POST -Headers @{ "Content-Type" = "application/json" } -Body '{"status": false}'
-    Invoke-WebRequest -Uri "https://eliohz.com/api/ticket-status" -Method POST -Headers @{ "Content-Type" = "application/json" } -Body '{"status": true}'
-    ```
+---
 
-## 6 Architekturübersicht
-Das Projekt besteht aus den folgenden Hauptkomponenten:
-- `manifest.yml`: Metadaten für das Projekt. Wird benötigt um die App zu initialisieren.
-- `__init.py__`: MicroPython Code für App.
-- `ressources/`: Ressourcen. (App Icon/Display Bild "neues Ticket und keine neuen Tickets")
+# **3. Installation**  
+To install and configure the Vobot system, please follow the official guide at [dock.myvobot.com](https://dock.myvobot.com/developer/getting_started/).  
 
-``` Systemaufbau
+Steps:  
+1. Install [Thonny](https://thonny.org/)  
+2. Connect to ESP32  
+3. Copy the `App` folder to the ESP32  
+4. Execute `manifest.yml`  
+
+---
+
+# **4. Usage / Testing**  
+## **1. Usage**  
+- When a new ticket arrives, the light turns **red**.  
+- After viewing the ticket, it can be confirmed using a button, turning the light **green**.  
+
+## **2. Manually Updating API Boolean (POST Request)**  
+The project uses a **self-hosted API** that maintains a boolean value (`true` or `false`).  
+
+### **Using cURL (Linux/macOS/Windows)**
+```bash
+curl -X POST https://your-api.com/api/ticket-status -H "Content-Type: application/json" -d '{"status": false}'
+curl -X POST https://your-api.com/api/ticket-status -H "Content-Type: application/json" -d '{"status": true}'
+```
+### **Using PowerShell (Windows)**
+```powershell
+Invoke-WebRequest -Uri "https://your-api.com/api/ticket-status" -Method POST -Headers @{ "Content-Type" = "application/json" } -Body '{"status": false}'
+Invoke-WebRequest -Uri "https://your-api.com/api/ticket-status" -Method POST -Headers @{ "Content-Type" = "application/json" } -Body '{"status": true}'
+```
+
+---
+
+# **5. Architecture Overview**  
+The project consists of the following main components:  
+```markdown
+`BPOS/`
+  `manifest.yml`: Metadata for the project, required for initializing the app.
+  `__init__.py__`: MicroPython code for the application.
+  `resources/`: Assets such as app icons and display images (new ticket/no new tickets).
+```
+
+---
+
+# **6. System Structure**
+```markdown
           +------------------------+
           |    BPOS Chat (Queue)   |
           +-----------+------------+
                       |
-                      | "weitergeleitet" im Text
+                      | "forwarded" in text
                       v
    +---------------------------------------+
    |  Power Automate Task (Trigger Event)  | 
    +---------------------------------------+
                       |
-                      | POST  (False)
+                      | POST (False)
                       v
-         +-------------------------+
-         |   eliohz.com (API Bool) | https://eliohz.com/api/ticket-status
-         +------------+------------+
+         +----------------------------+
+         |  Self-Hosted API (Boolean) |  https://your-api.com/api/ticket-status
+         +------------+---------------+
                    Ʌ     |
-  Knopf gedrückt   |     |  GET Request
+  Button pressed   |     |  GET Request
   POST (True)      |     |
                    |     v
-  +----------------------------------------+
-  |                VoBot                   |
-  |  [Grün(if True)] <--> [Rot(if False)]  |
-  +---------+------------------------------+
-
+  +-------------------------------------------+
+  |                VoBot                      |
+  |  [Green (if True)] <--> [Red (if False)]  |
+  +---------+---------------------------------+
 ```
 
-## 7 Kontaktinformationen
-Hauptverantwortlicher: Elio Heinz
-E-Mail: elio.heinz@bechtle.com
+# **7. Project Structure**
+
+The project is organized as follows:
+
+```
+.
+├── BPoS
+│   ├── __init__.py        # MicroPython application logic
+│   ├── manifest.yml       # Metadata for initializing the app
+│   └── resources          # Assets for display and UI
+│       ├── false.jpg      # Image shown when no new tickets are available
+│       ├── icon.png       # App icon
+│       └── true.jpg       # Image shown when a new ticket is available
+└── README.md              # Project documentation
+```

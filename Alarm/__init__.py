@@ -3,14 +3,14 @@ import urequests
 import peripherals
 
 # Constants and configuration
-ICON: str = "A:apps/BPoS/resources/icon.png"
+ICON: str = "A:apps/Alarm/resources/icon.png"
 
-NAME = "BPOS Alarm"
-API_URL = "https://eliohz.com/api/ticket-status"
+NAME = "Alarm"
+API_URL = "https://your-api.com/api/ticket-status"
 CAN_BE_AUTO_SWITCHED = True
 DEFAULT_BG_COLOR = lv.color_hex3(0x000)
-PHOTO_TRUE = "A:apps/BPoS/resources/true.jpg"
-PHOTO_FALSE = "A:apps/BPoS/resources/false.jpg"
+PHOTO_TRUE = "A:apps/Alarm/resources/true.jpg"
+PHOTO_FALSE = "A:apps/Alarm/resources/false.jpg"
 
 
 # Global variables
@@ -40,13 +40,13 @@ async def fetch_ticket_status():
     return last_ticket_status
 
 def update_photo_true():
-    # Aktualisiere den Hintergrund des Bildschirms mit dem entsprechenden Bild
+    # Update the background of the screen with the corresponding image
     global scr
     if scr:
         scr.set_style_bg_img_src(PHOTO_TRUE, lv.PART.MAIN)
 
 def update_photo_false():
-    # Aktualisiere den Hintergrund des Bildschirms mit dem entsprechenden Bild
+    # Update the background of the screen with the corresponding image
     global scr
     if scr:
         scr.set_style_bg_img_src(PHOTO_FALSE, lv.PART.MAIN)

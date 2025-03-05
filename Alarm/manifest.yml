@@ -1,5 +1,5 @@
 application:
-  name: BPOS Alarm
+  name: Alarm
   version: 1.0.0
   description: A simple ticket counter app using LVGL and peripherals like ambient light.
   author: Elio Heinz
