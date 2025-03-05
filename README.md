@@ -26,7 +26,6 @@ The project consists of the following main components
 
 # **4. System Structure**
 ```
-
        +-------------------------------+
        |  Trigger (HTTP POST Request)  | 
        +-------------------------------+
