@@ -25,7 +25,7 @@ The project consists of the following main components
 ```
 
 # **4. System Structure**
-```markdown
+```bash
 
        +-------------------------------+
        |  Trigger (HTTP POST Request)  | 
