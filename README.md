@@ -60,7 +60,7 @@ Steps:
 - When the API returns `false`, the light/display turns **red**.
 - If the Vobot is **red**, it can be reset to **green** by pressing the button.
 
-## **7. Manually Updating API Boolean (POST Request)**  
+# **7. Manually Updating API Boolean (POST Request)**  
 The project uses a **self-hosted API** that maintains a boolean value (`true` or `false`).  
 
 **Using cURL (Linux/macOS/Windows)**
