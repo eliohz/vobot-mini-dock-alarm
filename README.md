@@ -35,27 +35,6 @@ graph TD;
     B["Post Request"] -->|"POST (true)"| API;
     V -->|Button pressed| B;
 ```
-
-```
-       +-------------------------------+
-       |  Trigger (HTTP POST Request)  | 
-       +-------------------------------+
-                       |
-                       | POST (false)
-                       v
-         +----------------------------+
-         |  Self-Hosted API (Boolean) |  https://your-api.com/api/ticket-status
-         +------------+---------------+
-                   Ʌ     |
-  Button pressed   |     |  GET Request
-  POST (true)      |     |
-                   |     v
-  +-------------------------------------------+
-  |                  VoBot                    |
-  |  [Green (if True)] <--> [Red (if False)]  |
-  +---------+---------------------------------+
-```
-
 # **5. Installation**  
 To install and configure the Vobot system, please follow the official guide at [dock.myvobot.com](https://dock.myvobot.com/developer/getting_started/).  
 
