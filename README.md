@@ -24,6 +24,18 @@ The project consists of the following main components:
 ```
 
 # **4. System Structure**
+```mermaid
+graph TD;
+    T["Trigger"] -->|"POST (false)"| API["Self-Hosted API (Boolean)"];
+    
+    API -->|"GET Request"| V["VoBot"];
+    V -->|"Green (if true)"| G["Green State"];
+    V -->|"Red (if false)"| R["Red State"];
+    
+    B["Post Request"] -->|"POST (true)"| API;
+    V -->|Button pressed| B;
+```
+
 ```
        +-------------------------------+
        |  Trigger (HTTP POST Request)  | 
